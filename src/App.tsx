@@ -2,7 +2,9 @@ import {
   User, 
   Wallet, 
   LineChart, 
-  ShoppingBag 
+  ShoppingBag,
+  Sparkles,
+  Download
 } from 'lucide-react';
 import Sidebar from './components/Sidebar';
 import Topbar from './components/Topbar';
@@ -22,37 +24,45 @@ function App() {
         <div className="content-wrapper">
           <header className="page-header">
             <div className="page-title-group">
-              <h1>Executive Dashboard</h1>
-              <p>Overview of your firm's performance metrics and growth indicators.</p>
+              <div className="flex items-center gap-4">
+                <div className="title-icon glass">
+                  <Sparkles size={24} className="text-primary" />
+                </div>
+                <h1>Executive Dashboard</h1>
+              </div>
+              <p>Real-time analytics and architectural project management console.</p>
             </div>
-            <button className="btn-primary">Generate Report</button>
+            <button className="btn-primary">
+              <Download size={18} />
+              Generate Insight Report
+            </button>
           </header>
 
           <div className="stats-grid">
             <StatsCard 
               icon={<User size={20} />} 
-              label="Active Users" 
+              label="Active Partners" 
               value="12,842" 
               trend="+12.5%" 
               trendType="up" 
             />
             <StatsCard 
               icon={<Wallet size={20} />} 
-              label="Monthly Revenue" 
+              label="Accrued Revenue" 
               value="$42.5k" 
               trend="+8.2%" 
               trendType="up" 
             />
             <StatsCard 
               icon={<LineChart size={20} />} 
-              label="Market Growth" 
+              label="Market Velocity" 
               value="18.4%" 
               trend="Optimal" 
               trendType="neutral" 
             />
             <StatsCard 
               icon={<ShoppingBag size={20} />} 
-              label="Total Orders" 
+              label="Open Contracts" 
               value="1,204" 
               trend="-2.4%" 
               trendType="down" 
@@ -67,7 +77,7 @@ function App() {
           <OrdersTable />
 
           <footer className="footer">
-            © 2024 Architectural Dashboard • Proprietary Admin Access Only
+            Design & Experience by Alex Sterling • Digital Architecture Framework v2.4
           </footer>
         </div>
       </main>

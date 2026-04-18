@@ -11,18 +11,24 @@ interface StatsCardProps {
 
 const StatsCard = ({ icon, label, value, trend, trendType }: StatsCardProps) => {
   return (
-    <div className="stats-card">
+    <div className={`stats-card glass trend-glow-${trendType}`}>
+      <div className="card-glow"></div>
       <div className="stats-card-header">
-        <div className="stats-icon-wrapper">
+        <div className={`stats-icon-wrapper icon-${trendType}`}>
           {icon}
         </div>
-        <span className={`trend-badge trend-${trendType}`}>
+        <div className={`trend-badge trend-${trendType} glass-pill`}>
+          {trendType === 'up' && <span className="trend-arrow">↑</span>}
+          {trendType === 'down' && <span className="trend-arrow">↓</span>}
           {trend}
-        </span>
+        </div>
       </div>
       <div className="stats-card-body">
         <span className="stats-label">{label}</span>
         <h3 className="stats-value">{value}</h3>
+        <div className="stats-progress">
+          <div className={`progress-bar progress-${trendType}`} style={{ width: '65%' }}></div>
+        </div>
       </div>
     </div>
   );

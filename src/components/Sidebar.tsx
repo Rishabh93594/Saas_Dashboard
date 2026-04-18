@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   LayoutDashboard, 
   BarChart3, 
@@ -6,51 +6,81 @@ import {
   FolderLock, 
   FileText, 
   HelpCircle, 
-  LogOut 
+  LogOut,
+  ChevronRight
 } from 'lucide-react';
 import './Sidebar.css';
 
 const Sidebar: React.FC = () => {
+  const [activeItem, setActiveItem] = useState('Dashboard');
+
+  const navItems = [
+    { name: 'Dashboard', icon: <LayoutDashboard size={20} /> },
+    { name: 'Analytics', icon: <BarChart3 size={20} /> },
+    { name: 'Team', icon: <Users size={20} /> },
+    { name: 'Projects', icon: <FolderLock size={20} /> },
+    { name: 'Reports', icon: <FileText size={20} /> },
+  ];
+
+  const footerItems = [
+    { name: 'Help', icon: <HelpCircle size={20} /> },
+    { name: 'Logout', icon: <LogOut size={20} /> },
+  ];
+
   return (
-    <aside className="sidebar">
+    <aside className="sidebar glass">
       <div className="sidebar-logo">
-        <h1>Architect</h1>
-        <span>Admin Console</span>
+        <div className="logo-icon">
+          <div className="icon-inner"></div>
+        </div>
+        <div className="logo-text">
+          <h1>Architect</h1>
+          <span>Admin Console</span>
+        </div>
       </div>
 
-      <ul className="sidebar-nav">
-        <li className="nav-item active">
-          <LayoutDashboard size={20} />
-          <span>Dashboard</span>
-        </li>
-        <li className="nav-item">
-          <BarChart3 size={20} />
-          <span>Analytics</span>
-        </li>
-        <li className="nav-item">
-          <Users size={20} />
-          <span>Team</span>
-        </li>
-        <li className="nav-item">
-          <FolderLock size={20} />
-          <span>Projects</span>
-        </li>
-        <li className="nav-item">
-          <FileText size={20} />
-          <span>Reports</span>
-        </li>
-      </ul>
+      <nav className="sidebar-nav">
+        <div className="nav-section">
+          <span className="nav-label">Main Menu</span>
+          <ul className="nav-list">
+            {navItems.map((item) => (
+              <li 
+                key={item.name}
+                className={`nav-item ${activeItem === item.name ? 'active' : ''}`}
+                onClick={() => setActiveItem(item.name)}
+              >
+                <div className="nav-icon">{item.icon}</div>
+                <span className="nav-text">{item.name}</span>
+                {activeItem === item.name && <ChevronRight size={14} className="active-arrow" />}
+                <div className="active-pill"></div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </nav>
 
-      <ul className="sidebar-footer">
-        <li className="nav-item">
-          <HelpCircle size={20} />
-          <span>Help</span>
-        </li>
-        <li className="nav-item">
-          <LogOut size={20} />
-          <span>Logout</span>
-        </li>
-      </ul>
+      <div className="sidebar-footer">
+        <ul className="nav-list secondary">
+          {footerItems.map((item) => (
+            <li 
+              key={item.name}
+              className={`nav-item ${activeItem === item.name ? 'active' : ''}`}
+              onClick={() => setActiveItem(item.name)}
+            >
+              <div className="nav-icon">{item.icon}</div>
+              <span className="nav-text">{item.name}</span>
+            </li>
+          ))}
+        </ul>
+        
+        <div className="pro-badge glass">
+          <div className="pro-badge-content">
+            <span className="badge-title">Pro Plan</span>
+            <span className="badge-desc">Unlock advanced tools</span>
+          </div>
+          <button className="badge-btn">Upgrade</button>
+        </div>
+      </div>
     </aside>
   );
 };

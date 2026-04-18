@@ -1,17 +1,29 @@
 import React from 'react';
 import {
   Chart as ChartJS,
-  registerables
+  registerables,
+  Filler
 } from 'chart.js';
-import { Bar } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
+import { useTheme } from '../ThemeContext';
 import './RevenueChart.css';
 
-ChartJS.register(...registerables);
+ChartJS.register(...registerables, Filler);
 
 const RevenueChart: React.FC = () => {
+  const { theme } = useTheme();
+
+  const isDark = theme === 'dark';
+  const textColor = isDark ? '#94a3b8' : '#64748b';
+  const gridColor = isDark ? 'rgba(255, 255, 255, 0.05)' : '#f1f5f9';
+
   const options = {
     responsive: true,
     maintainAspectRatio: false,
+    interaction: {
+      mode: 'index' as const,
+      intersect: false,
+    },
     plugins: {
       legend: {
         position: 'top' as const,
@@ -23,13 +35,13 @@ const RevenueChart: React.FC = () => {
           font: {
             family: "'Plus Jakarta Sans', sans-serif",
             size: 12,
-            weight: 600,
+            weight: 700,
           },
-          color: '#475569',
+          color: textColor,
         },
       },
       tooltip: {
-        backgroundColor: '#0f172a',
+        backgroundColor: isDark ? '#1e293b' : '#0f172a',
         padding: 12,
         titleFont: {
           family: "'Plus Jakarta Sans', sans-serif",
@@ -39,9 +51,11 @@ const RevenueChart: React.FC = () => {
         bodyFont: {
           family: "'Plus Jakarta Sans', sans-serif",
           size: 13,
+          weight: 500,
         },
         cornerRadius: 8,
-        displayColors: false,
+        displayColors: true,
+        boxPadding: 6,
       },
     },
     scales: {
@@ -55,13 +69,13 @@ const RevenueChart: React.FC = () => {
             size: 12,
             weight: 600,
           },
-          color: '#94a3b8',
+          color: textColor,
         },
       },
       y: {
         beginAtZero: true,
         grid: {
-          color: '#f1f5f9',
+          color: gridColor,
           drawBorder: false,
         },
         ticks: {
@@ -70,14 +84,21 @@ const RevenueChart: React.FC = () => {
             size: 12,
             weight: 600,
           },
-          color: '#94a3b8',
-          callback: (value: any) => `${value}%`,
+          color: textColor,
+          callback: (value: any) => `$${value}k`,
         },
       },
     },
     elements: {
-      bar: {
-        borderRadius: 8,
+      line: {
+        tension: 0.4,
+      },
+      point: {
+        radius: 0,
+        hoverRadius: 6,
+        backgroundColor: '#2563eb',
+        borderWidth: 3,
+        borderColor: '#fff',
       },
     },
   };
@@ -88,33 +109,48 @@ const RevenueChart: React.FC = () => {
     labels,
     datasets: [
       {
-        label: 'Current Year',
-        data: [40, 65, 55, 85, 75, 95],
-        backgroundColor: '#2563eb',
-        hoverBackgroundColor: '#1d4ed8',
-        barThickness: 24,
+        fill: true,
+        label: 'Revenue',
+        data: [32, 45, 42, 68, 55, 74],
+        borderColor: '#2563eb',
+        backgroundColor: (context: any) => {
+          const ctx = context.chart.ctx;
+          const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+          gradient.addColorStop(0, 'rgba(37, 99, 235, 0.2)');
+          gradient.addColorStop(1, 'rgba(37, 99, 235, 0)');
+          return gradient;
+        },
+        borderWidth: 3,
       },
       {
-        label: 'Previous Year',
-        data: [30, 45, 50, 70, 60, 80],
-        backgroundColor: '#cbd5e1',
-        hoverBackgroundColor: '#94a3b8',
-        barThickness: 24,
+        fill: true,
+        label: 'Projections',
+        data: [25, 38, 45, 52, 60, 68],
+        borderColor: '#94a3b8',
+        borderDash: [5, 5],
+        backgroundColor: 'transparent',
+        borderWidth: 2,
       },
     ],
   };
 
   return (
-    <div className="revenue-chart-container animate-in">
+    <div className="revenue-chart-container glass">
       <div className="chart-header">
         <div className="chart-title-group">
-          <h3>Revenue Growth</h3>
-          <span>January — June 2024</span>
+          <h3 className="section-title">Revenue Dynamics</h3>
+          <span className="chart-subtitle">Regional performance for H1 2024</span>
+        </div>
+        <div className="chart-actions">
+          <select className="glass-pill chart-select">
+            <option>Last 6 Months</option>
+            <option>Last Year</option>
+          </select>
         </div>
       </div>
 
       <div className="chart-body">
-        <Bar options={options} data={data} />
+        <Line options={options} data={data} />
       </div>
     </div>
   );

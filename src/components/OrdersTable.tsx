@@ -1,11 +1,12 @@
 import React from 'react';
+import { MoreVertical, ExternalLink } from 'lucide-react';
 import './OrdersTable.css';
 
 interface Order {
   id: string;
   client: string;
   avatar: string;
-  status: 'Completed' | 'Processing' | 'On Hold';
+  status: 'Completed' | 'Processing' | 'Hold';
   date: string;
   amount: string;
 }
@@ -31,7 +32,7 @@ const orders: Order[] = [
     id: '#ORD-28494',
     client: 'EcoSystems Agency',
     avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop',
-    status: 'On Hold',
+    status: 'Hold',
     date: 'Oct 26, 2024',
     amount: '$3,120.00'
   },
@@ -47,23 +48,26 @@ const orders: Order[] = [
 
 const OrdersTable: React.FC = () => {
   return (
-    <div className="orders-section animate-in">
+    <div className="orders-section glass">
       <div className="orders-header">
         <div className="orders-title-group">
-          <h3>Recent Orders</h3>
-          <p>Transaction history and project status across your client base.</p>
+          <h3 className="section-title">Client Engagement</h3>
+          <p className="section-subtitle">A detailed overview of recent architectural contract progress.</p>
         </div>
-        <a href="#" className="view-all">View All Transactions</a>
+        <button className="view-all glass-pill">
+          Export Data <ExternalLink size={14} />
+        </button>
       </div>
       <div className="table-container">
         <table>
           <thead>
             <tr>
               <th>Order ID</th>
-              <th>Client Name</th>
-              <th>Status</th>
-              <th>Order Date</th>
-              <th className="amount-cell">Amount</th>
+              <th>Partner</th>
+              <th>Current Status</th>
+              <th>Filing Date</th>
+              <th className="amount-cell">Valuation</th>
+              <th className="actions-cell"></th>
             </tr>
           </thead>
           <tbody>
@@ -72,18 +76,28 @@ const OrdersTable: React.FC = () => {
                 <td className="order-id">{order.id}</td>
                 <td>
                   <div className="client-cell">
-                    <img src={order.avatar} alt={order.client} className="client-avatar" />
+                    <div className="avatar-stack">
+                      <img src={order.avatar} alt={order.client} className="client-avatar" />
+                      <div className="status-ping"></div>
+                    </div>
                     <span className="client-name">{order.client}</span>
                   </div>
                 </td>
                 <td>
-                  <span className={`status-badge status-${order.status.toLowerCase().replace(' ', '')}`}>
+                  <div className={`status-badge glass-pill status-${order.status.toLowerCase()}`}>
                     <span className="status-dot"></span>
                     {order.status}
-                  </span>
+                  </div>
                 </td>
                 <td className="date-cell">{order.date}</td>
-                <td className="amount-cell">{order.amount}</td>
+                <td className="amount-cell">
+                  <span className="amount-value">{order.amount}</span>
+                </td>
+                <td className="actions-cell">
+                  <button className="row-action-btn">
+                    <MoreVertical size={18} />
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -94,3 +108,4 @@ const OrdersTable: React.FC = () => {
 };
 
 export default OrdersTable;
+

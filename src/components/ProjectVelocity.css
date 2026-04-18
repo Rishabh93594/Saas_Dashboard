@@ -1,65 +1,99 @@
 .velocity-card {
   flex: 1;
-  background: linear-gradient(135deg, var(--primary) 0%, #1e40af 100%);
-  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  border-radius: var(--radius-xl);
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
   color: white;
-  padding: 2.25rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 2.5rem;
+  gap: 2rem;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 20px 40px -10px var(--primary-glow);
+  box-shadow: 0 12px 32px var(--primary-glow);
+  transition: var(--transition);
 }
 
-.velocity-card::before {
-  content: '';
+.velocity-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px var(--primary-glow);
+}
+
+.velocity-bg-glow {
   position: absolute;
-  top: -100px;
-  right: -100px;
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+  top: -10%;
+  right: -10%;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
   pointer-events: none;
 }
 
-.velocity-header h3 {
-  font-size: 1.5rem;
-  font-weight: 800;
-  margin-bottom: 1rem;
-  letter-spacing: -0.02em;
+.velocity-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  position: relative;
+  z-index: 1;
+}
+
+.velocity-title-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.velocity-card .section-title {
+  color: white;
+}
+
+.velocity-badge {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .velocity-header p {
-  font-size: 1rem;
+  font-size: 0.9375rem;
   opacity: 0.9;
-  line-height: 1.7;
   font-weight: 500;
+  line-height: 1.5;
 }
 
 .velocity-footer {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.milestone-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
 }
 
 .milestone-badge {
   display: flex;
   align-items: center;
   gap: 1rem;
+  padding: 0.75rem;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .milestone-icon {
-  width: 52px;
-  height: 52px;
+  width: 36px;
+  height: 36px;
   background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(8px);
-  border-radius: var(--radius-md);
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .milestone-info {
@@ -68,53 +102,59 @@
 }
 
 .milestone-label {
-  font-size: 0.8125rem;
-  text-transform: uppercase;
-  opacity: 0.7;
+  font-size: 0.6875rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.7;
 }
 
 .milestone-value {
+  font-size: 0.8125rem;
   font-weight: 700;
-  font-size: 1.125rem;
+}
+
+.milestone-pct {
+  font-weight: 800;
+  font-size: 1.25rem;
 }
 
 .progress-container {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+  width: 100%;
 }
 
 .progress-bar-bg {
-  width: 100%;
-  height: 12px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 6px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
   overflow: hidden;
 }
 
 .progress-bar-fill {
   height: 100%;
   background: white;
-  border-radius: 6px;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
   position: relative;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
 }
 
-@keyframes progressPulse {
-  0% { opacity: 0.8; }
-  50% { opacity: 1; }
-  100% { opacity: 0.8; }
-}
-
-.progress-bar-fill::after {
-  content: '';
+.progress-shimmer {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
   bottom: 0;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-  animation: progressPulse 2s infinite;
+  width: 40px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(300%); }
+}
+
+@media (max-width: 1024px) {
+  .velocity-card {
+    padding: 1.5rem;
+  }
 }

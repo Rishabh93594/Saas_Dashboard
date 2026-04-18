@@ -2,6 +2,34 @@
   display: flex;
   min-height: 100vh;
   background: var(--bg-main);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Background Decorative Elements */
+.layout::before {
+  content: '';
+  position: absolute;
+  top: -10%;
+  right: -5%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.layout::after {
+  content: '';
+  position: absolute;
+  bottom: -10%;
+  left: -5%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .main-content {
@@ -10,6 +38,8 @@
   padding: 0 0 4rem 0;
   display: flex;
   flex-direction: column;
+  position: relative;
+  z-index: 1;
 }
 
 .content-wrapper {
@@ -17,22 +47,30 @@
   max-width: 1440px;
   margin: 0 auto;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
 }
 
 .page-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-bottom: 3.5rem;
-  animation: fadeInUp 0.6s ease-out;
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.page-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .page-title-group h1 {
-  font-size: 2.5rem;
+  font-size: 2.75rem;
   font-weight: 800;
   color: var(--text-main);
-  margin-bottom: 0.5rem;
   letter-spacing: -0.04em;
+  line-height: 1.1;
 }
 
 .page-title-group p {
@@ -48,7 +86,10 @@
   border-radius: var(--radius-md);
   font-weight: 700;
   font-size: 1rem;
-  box-shadow: 0 10px 20px -5px var(--primary-glow);
+  box-shadow: var(--shadow-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .btn-primary:hover {
@@ -57,14 +98,21 @@
   box-shadow: 0 15px 30px -8px var(--primary-glow);
 }
 
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 .dashboard-middle {
   display: flex;
   gap: 2rem;
-  margin-bottom: 3rem;
+  animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .footer {
-  margin-top: 6rem;
+  margin-top: 4rem;
   padding: 3rem 0;
   border-top: 1px solid var(--border);
   text-align: center;
@@ -73,6 +121,12 @@
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-weight: 700;
+}
+
+@media (max-width: 1280px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 1024px) {
@@ -85,7 +139,7 @@
   }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 960px) {
   .dashboard-middle {
     flex-direction: column;
   }
@@ -98,25 +152,44 @@
   
   .content-wrapper {
     padding: 1.5rem;
+    gap: 2rem;
   }
   
   .page-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 1.5rem;
-    margin-bottom: 2.5rem;
+    gap: 2rem;
   }
   
   .page-title-group h1 {
-    font-size: 1.75rem;
-  }
-  
-  .page-title-group p {
-    font-size: 1rem;
+    font-size: 2rem;
   }
   
   .btn-primary {
     width: 100%;
-    text-align: center;
+    justify-content: center;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
   }
 }
+
+.title-icon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-lg);
+}
+
+.text-primary {
+  color: var(--primary);
+}
+
+/* Entrance Animations Delay */
+.stats-grid > *:nth-child(1) { animation-delay: 0.1s; }
+.stats-grid > *:nth-child(2) { animation-delay: 0.2s; }
+.stats-grid > *:nth-child(3) { animation-delay: 0.3s; }
+.stats-grid > *:nth-child(4) { animation-delay: 0.4s; }
