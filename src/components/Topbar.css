@@ -1,71 +1,64 @@
 .topbar {
   height: var(--topbar-height);
   background: var(--bg-glass);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-glass);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 3.5rem;
+  padding: 0 2rem;
   position: sticky;
   top: 0;
   z-index: 90;
-  transition: var(--transition);
 }
 
 .search-container {
   display: flex;
   align-items: center;
   gap: 1rem;
-  background: var(--bg-main);
-  border: 1px solid var(--border);
-  padding: 0.625rem 1.25rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-glass);
+  padding: 0.6rem 1.25rem;
   border-radius: var(--radius-md);
   width: 100%;
-  max-width: 440px;
+  max-width: 400px;
   transition: var(--transition);
 }
 
 .search-container:focus-within {
   border-color: var(--primary);
-  box-shadow: 0 0 0 4px var(--primary-glow);
-  background: var(--bg-card);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 20px var(--primary-glow);
 }
 
 .search-icon {
   color: var(--text-light);
-  transition: var(--transition);
-}
-
-.search-container:focus-within .search-icon {
-  color: var(--primary);
 }
 
 .search-container input {
   border: none;
   background: transparent;
   outline: none;
-  font-size: 0.9375rem;
+  font-size: 0.95rem;
   color: var(--text-main);
   width: 100%;
   font-weight: 500;
 }
 
 .search-kbd {
-  font-family: inherit;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--text-light);
-  background: var(--border-strong);
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.1);
   padding: 2px 6px;
-  border-radius: 4px;
+  border-radius: 6px;
+  border: 1px solid var(--border-glass);
 }
 
 .topbar-actions {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .icon-btn {
@@ -74,19 +67,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-md);
+  border-radius: 12px;
   color: var(--text-muted);
   position: relative;
-  border: 1px solid transparent;
-  background: var(--bg-main);
-  transition: var(--transition);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-glass);
 }
 
 .icon-btn:hover {
-  background: var(--primary-light);
   color: var(--primary);
-  border-color: var(--border-glass);
-  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--primary);
 }
 
 .notification-dot {
@@ -98,16 +89,28 @@
   background-color: var(--danger);
   border: 2px solid var(--bg-card);
   border-radius: 50%;
-  animation: pulse-soft 2s infinite;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+}
+
+.user-profile-container {
+  position: relative;
 }
 
 .user-profile {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
-  padding-left: 1rem;
-  border-left: 1px solid var(--border);
-  margin-left: 1rem;
+  gap: 1rem;
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
+  border-radius: 14px;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-glass);
+  transition: all 0.3s ease;
+}
+
+.user-profile:hover, .user-profile.active {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--primary);
 }
 
 .user-info {
@@ -117,16 +120,16 @@
 }
 
 .user-name {
-  font-size: 0.9375rem;
+  font-size: 0.95rem;
   font-weight: 700;
   color: var(--text-main);
-  line-height: 1.2;
+  line-height: 1.1;
 }
 
 .user-role {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 600;
-  color: var(--text-light);
+  color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -136,12 +139,10 @@
 }
 
 .user-avatar {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
   object-fit: cover;
-  border: 2px solid var(--bg-card);
-  box-shadow: var(--shadow-soft);
 }
 
 .status-indicator {
@@ -151,16 +152,17 @@
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  border: 2px solid var(--bg-card);
+  border: 2.5px solid var(--bg-card);
 }
 
 .status-indicator.online {
   background-color: var(--success);
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
 }
 
 @media (max-width: 1024px) {
   .topbar {
-    padding: 0 2rem;
+    padding: 0 1.5rem;
   }
 }
 
@@ -171,10 +173,6 @@
 }
 
 @media (max-width: 640px) {
-  .topbar {
-    padding: 0 1.5rem;
-  }
-  
   .search-container {
     display: none;
   }

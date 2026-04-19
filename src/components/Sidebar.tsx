@@ -9,6 +9,7 @@ import {
   LogOut,
   ChevronRight
 } from 'lucide-react';
+import { motion } from 'framer-motion';
 import './Sidebar.css';
 
 const Sidebar: React.FC = () => {
@@ -30,9 +31,13 @@ const Sidebar: React.FC = () => {
   return (
     <aside className="sidebar glass">
       <div className="sidebar-logo">
-        <div className="logo-icon">
+        <motion.div 
+          className="logo-icon"
+          whileHover={{ rotate: 180 }}
+          transition={{ duration: 0.5 }}
+        >
           <div className="icon-inner"></div>
-        </div>
+        </motion.div>
         <div className="logo-text">
           <h1>Architect</h1>
           <span>Admin Console</span>
@@ -44,16 +49,24 @@ const Sidebar: React.FC = () => {
           <span className="nav-label">Main Menu</span>
           <ul className="nav-list">
             {navItems.map((item) => (
-              <li 
+              <motion.li 
                 key={item.name}
                 className={`nav-item ${activeItem === item.name ? 'active' : ''}`}
                 onClick={() => setActiveItem(item.name)}
+                whileHover={{ x: 5 }}
+                whileTap={{ scale: 0.98 }}
               >
                 <div className="nav-icon">{item.icon}</div>
                 <span className="nav-text">{item.name}</span>
+                {activeItem === item.name && (
+                  <motion.div 
+                    layoutId="active-pill"
+                    className="active-pill"
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  />
+                )}
                 {activeItem === item.name && <ChevronRight size={14} className="active-arrow" />}
-                <div className="active-pill"></div>
-              </li>
+              </motion.li>
             ))}
           </ul>
         </div>
@@ -62,24 +75,28 @@ const Sidebar: React.FC = () => {
       <div className="sidebar-footer">
         <ul className="nav-list secondary">
           {footerItems.map((item) => (
-            <li 
+            <motion.li 
               key={item.name}
               className={`nav-item ${activeItem === item.name ? 'active' : ''}`}
               onClick={() => setActiveItem(item.name)}
+              whileHover={{ x: 5 }}
             >
               <div className="nav-icon">{item.icon}</div>
               <span className="nav-text">{item.name}</span>
-            </li>
+            </motion.li>
           ))}
         </ul>
         
-        <div className="pro-badge glass">
+        <motion.div 
+          className="pro-badge glass"
+          whileHover={{ y: -5 }}
+        >
           <div className="pro-badge-content">
             <span className="badge-title">Pro Plan</span>
             <span className="badge-desc">Unlock advanced tools</span>
           </div>
           <button className="badge-btn">Upgrade</button>
-        </div>
+        </motion.div>
       </div>
     </aside>
   );

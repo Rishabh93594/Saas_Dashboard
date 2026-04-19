@@ -1,95 +1,83 @@
 .stats-card {
   padding: 1.75rem;
   border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--bg-glass);
+}
+
+.card-content {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  position: relative;
-  overflow: hidden;
-  transition: var(--transition);
-  cursor: pointer;
-  border: 1px solid var(--border);
-  background: var(--bg-card);
-}
-
-.stats-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-hover);
-}
-
-.card-glow {
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
-  opacity: 0;
-  transition: var(--transition);
-  pointer-events: none;
-}
-
-.stats-card:hover .card-glow {
-  opacity: 1;
+  z-index: 1;
 }
 
 .stats-card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 1;
 }
 
 .stats-icon-wrapper {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: var(--transition);
+  position: relative;
 }
 
-.icon-up { background: var(--success-bg); color: var(--success); }
-.icon-down { background: var(--danger-bg); color: var(--danger); }
-.icon-neutral { background: var(--info-bg); color: var(--info); }
+.icon-up { 
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(16, 185, 129, 0.1) 100%);
+  color: #10b981;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+}
 
-.stats-card:hover .stats-icon-wrapper {
-  transform: scale(1.1);
+.icon-down { 
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(239, 68, 68, 0.1) 100%);
+  color: #ef4444;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+}
+
+.icon-neutral { 
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(99, 102, 241, 0.1) 100%);
+  color: #6366f1;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
 }
 
 .trend-badge {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 700;
   display: flex;
   align-items: center;
   gap: 0.25rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-glass);
 }
 
-.trend-arrow {
-  font-weight: 800;
-}
-
-.trend-up { color: var(--success); background: var(--success-bg); border-color: rgba(16, 185, 129, 0.2); }
-.trend-down { color: var(--danger); background: var(--danger-bg); border-color: rgba(239, 68, 68, 0.2); }
-.trend-neutral { color: var(--info); background: var(--info-bg); border-color: rgba(59, 130, 246, 0.2); }
+.trend-up { color: #10b981; }
+.trend-down { color: #ef4444; }
+.trend-neutral { color: #6366f1; }
 
 .stats-card-body {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
-  z-index: 1;
 }
 
 .stats-label {
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--text-muted);
-  letter-spacing: 0.01em;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
 .stats-value {
-  font-size: 2rem;
+  font-size: 2.25rem;
   font-weight: 800;
   color: var(--text-main);
   letter-spacing: -0.04em;
@@ -99,31 +87,43 @@
 .stats-progress {
   width: 100%;
   height: 6px;
-  background: var(--border);
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 10px;
-  margin-top: 0.75rem;
+  margin-top: 0.5rem;
   overflow: hidden;
 }
 
 .progress-bar {
   height: 100%;
   border-radius: 10px;
-  transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 10px currentColor;
 }
 
-.progress-up { background: var(--success); }
-.progress-down { background: var(--danger); }
-.progress-neutral { background: var(--info); }
+.progress-up { background: #10b981; color: #10b981; }
+.progress-down { background: #ef4444; color: #ef4444; }
+.progress-neutral { background: #6366f1; color: #6366f1; }
 
-/* Trend Specific Glows */
-.trend-glow-up .card-glow {
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, transparent 70%);
+/* Custom Glow Effects */
+.trend-glow-up::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.1), transparent 70%);
+  pointer-events: none;
 }
 
-.trend-glow-down .card-glow {
-  background: radial-gradient(circle, rgba(239, 68, 68, 0.08) 0%, transparent 70%);
+.trend-glow-down::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(239, 68, 68, 0.1), transparent 70%);
+  pointer-events: none;
 }
 
-.trend-glow-neutral .card-glow {
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+.trend-glow-neutral::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.1), transparent 70%);
+  pointer-events: none;
 }

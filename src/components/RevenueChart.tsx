@@ -33,7 +33,7 @@ const RevenueChart: React.FC = () => {
           usePointStyle: true,
           pointStyle: 'circle',
           font: {
-            family: "'Plus Jakarta Sans', sans-serif",
+            family: "'Outfit', sans-serif",
             size: 12,
             weight: 700,
           },
@@ -65,7 +65,7 @@ const RevenueChart: React.FC = () => {
         },
         ticks: {
           font: {
-            family: "'Plus Jakarta Sans', sans-serif",
+            family: "'Outfit', sans-serif",
             size: 12,
             weight: 600,
           },
@@ -80,7 +80,7 @@ const RevenueChart: React.FC = () => {
         },
         ticks: {
           font: {
-            family: "'Plus Jakarta Sans', sans-serif",
+            family: "'Outfit', sans-serif",
             size: 12,
             weight: 600,
           },
@@ -112,12 +112,12 @@ const RevenueChart: React.FC = () => {
         fill: true,
         label: 'Revenue',
         data: [32, 45, 42, 68, 55, 74],
-        borderColor: '#2563eb',
+        borderColor: '#6366f1',
         backgroundColor: (context: any) => {
           const ctx = context.chart.ctx;
           const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-          gradient.addColorStop(0, 'rgba(37, 99, 235, 0.2)');
-          gradient.addColorStop(1, 'rgba(37, 99, 235, 0)');
+          gradient.addColorStop(0, 'rgba(99, 102, 241, 0.2)');
+          gradient.addColorStop(1, 'rgba(99, 102, 241, 0)');
           return gradient;
         },
         borderWidth: 3,
