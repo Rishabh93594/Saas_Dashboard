@@ -22,7 +22,8 @@ const OrdersTable: React.FC = () => {
     const fetchOrders = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch('http://localhost:5000/api/orders');
+        const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+        const response = await fetch(`${API_URL}/api/orders`);
         if (!response.ok) throw new Error('Failed to fetch orders');
         const data = await response.json();
         setOrders(data);
@@ -38,7 +39,8 @@ const OrdersTable: React.FC = () => {
 
   const handleDelete = async (id: string) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/orders/${id}`, {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const response = await fetch(`${API_URL}/api/orders/${id}`, {
         method: 'DELETE',
       });
       if (!response.ok) throw new Error('Failed to delete order');
