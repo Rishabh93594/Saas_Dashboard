@@ -1,5 +1,5 @@
 import React from 'react';
-import { Info, Download, Filter, FileText, Receipt, LifeBuoy, CreditCard as CardIcon } from 'lucide-react';
+import { Info, Download, Receipt, LifeBuoy } from 'lucide-react';
 import { motion } from 'framer-motion';
 import './Billing.css';
 

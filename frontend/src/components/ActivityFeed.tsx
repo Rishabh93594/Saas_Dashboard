@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bell, Zap, Shield, CheckCircle } from 'lucide-react';
 import './ActivityFeed.css';
@@ -11,7 +11,7 @@ interface ActivityItem {
 }
 
 const ActivityFeed: React.FC = () => {
-  const [activities, setActivities] = useState<ActivityItem[]>([
+  const [activities] = useState<ActivityItem[]>([
     { id: '1', text: 'System load optimized to 12%', icon: <Zap size={14} />, time: 'Just now' },
     { id: '2', text: 'New partner verified', icon: <Shield size={14} />, time: '2m ago' },
     { id: '3', text: 'Monthly report generated', icon: <CheckCircle size={14} />, time: '15m ago' },

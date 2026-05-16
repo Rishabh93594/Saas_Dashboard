@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MoreVertical, ExternalLink, Loader2, Trash2, Plus, ArrowUpDown, ChevronDown, LayoutGrid, List } from 'lucide-react';
+import { ExternalLink, Loader2, Trash2, Plus, ArrowUpDown, ChevronDown, LayoutGrid, List } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import OrdersKanban from './OrdersKanban';
 import './OrdersTable.css';
