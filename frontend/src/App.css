@@ -4,6 +4,7 @@
   background: var(--bg-main);
   position: relative;
   overflow-x: hidden;
+  padding-left: var(--sidebar-width);
 }
 
 /* Background Decorative Elements */
@@ -34,7 +35,8 @@
 
 .main-content {
   flex: 1;
-  margin-left: var(--sidebar-width);
+  width: 100%;
+  max-width: 100%;
   padding: 0 0 4rem 0;
   display: flex;
   flex-direction: column;
@@ -127,8 +129,8 @@
 }
 
 @media (max-width: 1024px) {
-  .main-content {
-    margin-left: 88px;
+  .layout {
+    padding-left: 88px;
   }
   
   .content-wrapper {
@@ -143,8 +145,8 @@
 }
 
 @media (max-width: 640px) {
-  .main-content {
-    margin-left: 0;
+  .layout {
+    padding-left: 0;
   }
   
   .content-wrapper {
@@ -185,4 +187,14 @@
   color: var(--primary);
 }
 
+.dashboard-bottom {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 2rem;
+}
 
+@media (max-width: 1280px) {
+  .dashboard-bottom {
+    grid-template-columns: 1fr;
+  }
+}

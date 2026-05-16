@@ -1,0 +1,437 @@
+/* Billing Page - New Layout */
+
+.billing-page-new {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.billing-header-row h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+}
+
+.billing-card {
+  padding: 2rem;
+  border-radius: var(--radius-xl);
+  background: var(--bg-card); /* Changes with light/dark theme automatically */
+  border: 1px solid var(--border-glass);
+}
+
+.billing-top-grid {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr;
+  gap: 2rem;
+}
+
+/* Current Plan Card */
+.current-plan-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-top-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2.5rem;
+}
+
+.subtitle {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.blue-text {
+  color: var(--primary);
+}
+
+.plan-title-area h2 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.btn-solid-blue {
+  background: var(--primary);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 99px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-solid-blue:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(99, 102, 241, 0.4);
+}
+
+.usage-stats-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.usage-stat-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.stat-label {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.stat-value {
+  color: var(--text-main);
+}
+
+.progress-track {
+  height: 6px;
+  background: rgba(100, 116, 139, 0.15);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 10px;
+}
+
+.billing-cycle-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--text-light);
+  background: rgba(99, 102, 241, 0.05);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(99, 102, 241, 0.1);
+}
+
+.billing-cycle-info strong {
+  color: var(--text-main);
+}
+
+/* Payment Method Card */
+.payment-method-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.payment-method-card .subtitle {
+  margin-bottom: 1.5rem;
+}
+
+.credit-card-mock {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  border-radius: 16px;
+  padding: 1.5rem;
+  color: white;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  aspect-ratio: 1.586;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Add a subtle glow inside the card */
+.credit-card-mock::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 60%);
+}
+
+.cc-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1;
+}
+
+.mastercard-logo {
+  display: flex;
+}
+
+.mastercard-logo .circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  opacity: 0.8;
+}
+
+.mastercard-logo .red {
+  background: #eb001b;
+}
+
+.mastercard-logo .yellow {
+  background: #f79e1b;
+  margin-left: -10px;
+}
+
+.cc-number {
+  font-family: 'Outfit', monospace;
+  font-size: 1.25rem;
+  letter-spacing: 0.1em;
+  display: flex;
+  justify-content: space-between;
+  margin: 1.5rem 0;
+  z-index: 1;
+}
+
+.cc-bottom {
+  display: flex;
+  justify-content: space-between;
+  z-index: 1;
+}
+
+.cc-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.cc-label {
+  font-size: 0.5rem;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.btn-glass-gray {
+  background: rgba(100, 116, 139, 0.1);
+  color: var(--text-main);
+  padding: 0.75rem;
+  border-radius: 99px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  border: 1px solid var(--border-glass);
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+  margin-top: auto;
+}
+
+.btn-glass-gray:hover {
+  background: rgba(100, 116, 139, 0.2);
+}
+
+/* History Card */
+.history-card {
+  padding: 2rem 0; /* Remove horizontal padding for edge-to-edge table */
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.history-header h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.history-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.btn-outline-small {
+  background: transparent;
+  border: 1px solid var(--border-glass);
+  color: var(--text-main);
+  padding: 0.5rem 1rem;
+  border-radius: 99px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-outline-small:hover {
+  background: rgba(100, 116, 139, 0.05);
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.history-table th {
+  text-align: left;
+  padding: 1rem 2rem;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-bottom: 1px solid var(--border-glass);
+}
+
+.history-table td {
+  padding: 1.25rem 2rem;
+  font-size: 0.9rem;
+  color: var(--text-main);
+  border-bottom: 1px solid rgba(100, 116, 139, 0.05);
+}
+
+.font-mono {
+  font-family: 'Outfit', monospace;
+  font-size: 0.85rem;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.status-badge-green {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  padding: 0.25rem 0.75rem;
+  border-radius: 99px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.action-icon-btn {
+  color: var(--primary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-icon-btn:hover {
+  opacity: 1;
+}
+
+.view-all-row {
+  padding: 1.5rem 2rem 0;
+  text-align: center;
+}
+
+.view-all-link {
+  color: var(--primary);
+  background: transparent;
+  border: none;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.view-all-link:hover {
+  text-decoration: underline;
+}
+
+/* Footer Support Cards */
+.billing-footer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.support-card {
+  display: flex;
+  gap: 1.5rem;
+  padding: 2rem;
+  align-items: flex-start;
+}
+
+.support-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: white;
+}
+
+.blue-bg {
+  background: var(--primary);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.purple-bg {
+  background: #8b5cf6;
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+.support-content h4 {
+  font-size: 1.1rem;
+  color: var(--text-main);
+  margin-bottom: 0.5rem;
+}
+
+.support-content p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.support-link {
+  color: var(--primary);
+  font-size: 0.85rem;
+  font-weight: 700;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.support-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 1024px) {
+  .billing-top-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .billing-footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
