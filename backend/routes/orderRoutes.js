@@ -44,4 +44,19 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+// UPDATE an order
+router.put('/:id', async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id);
+    if (!order) return res.status(404).json({ message: 'Order not found' });
+    
+    if (req.body.status) order.status = req.body.status;
+    
+    const updatedOrder = await order.save();
+    res.json(updatedOrder);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
 module.exports = router;
