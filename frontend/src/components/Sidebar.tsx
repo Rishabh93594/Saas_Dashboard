@@ -1,11 +1,9 @@
 import React from 'react';
 import { 
   LayoutDashboard, 
-  BarChart3, 
   Users, 
-  FolderLock, 
+  Trophy,
   FileText, 
-  CreditCard,
   HelpCircle, 
   LogOut,
   ChevronRight
@@ -23,15 +21,13 @@ const Sidebar: React.FC = () => {
 
   const navItems = [
     { name: 'Dashboard', path: '/', icon: <LayoutDashboard size={20} /> },
-    { name: 'Analytics', path: '#', icon: <BarChart3 size={20} /> },
-    { name: 'Team', path: '#', icon: <Users size={20} /> },
-    { name: 'Projects', path: '/projects', icon: <FolderLock size={20} /> },
-    { name: 'Billing', path: '/billing', icon: <CreditCard size={20} /> },
+    { name: 'Teams', path: '/teams', icon: <Users size={20} /> },
+    { name: 'Players & Fixtures', path: '/players', icon: <Trophy size={20} /> },
   ];
 
   const footerItems = [
-    { name: 'Reports', path: '#', icon: <FileText size={20} /> },
-    { name: 'Help', path: '#', icon: <HelpCircle size={20} /> },
+    { name: 'Insights', path: '#', icon: <FileText size={20} /> },
+    { name: 'Help Hub', path: '#', icon: <HelpCircle size={20} /> },
   ];
 
   const handleNav = (path: string) => {
@@ -45,14 +41,14 @@ const Sidebar: React.FC = () => {
       <div className="sidebar-logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
         <motion.div 
           className="logo-icon"
-          whileHover={{ rotate: 180 }}
-          transition={{ duration: 0.5 }}
+          whileHover={{ scale: 1.1 }}
+          style={{ background: 'transparent', boxShadow: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
         >
-          <div className="icon-inner"></div>
+          <img src="/images/fifa_logo.png" alt="FIFA Logo" style={{ width: '44px', height: '44px', objectFit: 'contain', borderRadius: '8px' }} />
         </motion.div>
         <div className="logo-text">
-          <h1>Architect</h1>
-          <span>Admin Console</span>
+          <h1>FIFA Cup</h1>
+          <span>Analytics Hub</span>
         </div>
       </div>
 
@@ -106,14 +102,14 @@ const Sidebar: React.FC = () => {
         <motion.div 
           className="pro-badge glass"
           whileHover={{ y: -5 }}
-          onClick={() => navigate('/billing')}
-          style={{ cursor: 'pointer' }}
+          onClick={() => navigate('/players')}
+          style={{ cursor: 'pointer', background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(253, 224, 71, 0.1) 100%)' }}
         >
           <div className="pro-badge-content">
-            <span className="badge-title">Pro Plan</span>
-            <span className="badge-desc">Unlock advanced tools</span>
+            <span className="badge-title" style={{ color: 'var(--warning)' }}>Qatar 2022</span>
+            <span className="badge-desc">Historic Finals Stats</span>
           </div>
-          <button className="badge-btn" onClick={(e) => { e.stopPropagation(); navigate('/billing'); }}>Upgrade</button>
+          <button className="badge-btn" onClick={(e) => { e.stopPropagation(); navigate('/players'); }} style={{ background: 'var(--grad-primary)', color: 'white' }}>View</button>
         </motion.div>
       </div>
     </aside>

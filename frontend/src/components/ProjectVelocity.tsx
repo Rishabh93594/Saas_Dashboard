@@ -1,5 +1,5 @@
 import React from 'react';
-import { Rocket, Zap } from 'lucide-react';
+import { Trophy, Target } from 'lucide-react';
 import './ProjectVelocity.css';
 
 const ProjectVelocity: React.FC = () => {
@@ -8,34 +8,34 @@ const ProjectVelocity: React.FC = () => {
       <div className="velocity-bg-glow"></div>
       <div className="velocity-header">
         <div className="velocity-title-group">
-          <h3 className="section-title">Operational Velocity</h3>
+          <h3 className="section-title">Squad Performance Index</h3>
           <div className="velocity-badge glass-pill">
-            <Zap size={12} fill="currentColor" /> 112% Performance
+            <Trophy size={12} fill="currentColor" className="text-warning" /> 88% Match Efficiency
           </div>
         </div>
         <p>
-          Your squad is outperforming current benchmarks. 
-          Optimization recommended for the next sprint.
+          The squad's expected goals (xG) metrics are currently exceeding pre-tournament forecasts.
+          Tactical setups are optimal for the upcoming fixtures.
         </p>
       </div>
 
       <div className="velocity-footer">
         <label className="milestone-container">
           <div className="milestone-badge glass">
-            <div className="milestone-icon">
-              <Rocket size={18} fill="white" />
+            <div className="milestone-icon" style={{ background: 'var(--warning)' }}>
+              <Target size={18} fill="white" />
             </div>
             <div className="milestone-info">
-              <span className="milestone-label">Target Milestone</span>
-              <span className="milestone-value">Horizon Alpha Launch</span>
+              <span className="milestone-label">Tournament Objective</span>
+              <span className="milestone-value">World Cup Victory</span>
             </div>
           </div>
-          <span className="milestone-pct">85%</span>
+          <span className="milestone-pct" style={{ color: 'var(--warning)' }}>88%</span>
         </label>
 
         <div className="progress-container">
           <div className="progress-bar-bg">
-            <div className="progress-bar-fill" style={{ width: '85%' }}>
+            <div className="progress-bar-fill" style={{ width: '88%', background: 'var(--grad-primary)' }}>
               <div className="progress-shimmer"></div>
             </div>
           </div>

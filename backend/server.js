@@ -18,8 +18,10 @@ mongoose.connect(MONGODB_URI)
   .catch(err => console.error('❌ MongoDB connection error:', err));
 
 // Routes
-const orderRoutes = require('./routes/orderRoutes');
-app.use('/api/orders', orderRoutes);
+const matchRoutes = require('./routes/matchRoutes');
+app.use('/api/matches', matchRoutes);
+app.use('/api/orders', matchRoutes); // Fallback for transition
+
 
 // Basic Route
 app.get('/', (req, res) => {

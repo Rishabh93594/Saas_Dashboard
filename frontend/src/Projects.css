@@ -223,6 +223,84 @@
   gap: 0.5rem;
 }
 
+/* Team Stats Row */
+.team-stats-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  padding: 0.75rem;
+  border-radius: var(--radius-md);
+  background: rgba(100, 116, 139, 0.06);
+}
+
+.team-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.team-stat-value {
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.team-stat-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 0.25rem;
+}
+
+/* Player Avatar Wrappers */
+.player-avatar-wrapper {
+  margin-left: -6px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.player-avatar-wrapper:first-child {
+  margin-left: 0;
+}
+
+.player-avatar-wrapper svg {
+  border: 2px solid var(--bg-card);
+}
+
+/* Squad count badge */
+.squad-count {
+  width: auto !important;
+  padding: 0 0.5rem;
+  font-size: 0.65rem;
+  border-radius: 99px;
+  margin-left: 6px;
+  background: rgba(30, 215, 96, 0.1);
+  color: var(--primary);
+  border: 1px solid rgba(30, 215, 96, 0.2);
+  white-space: nowrap;
+}
+
+/* Team Flag Overlay */
+.team-flag-overlay {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  font-size: 1.3rem;
+}
+
 /* Initiate New Build Card */
 .new-build-card {
   background: transparent;

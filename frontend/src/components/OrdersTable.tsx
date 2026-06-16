@@ -7,11 +7,11 @@ import './OrdersTable.css';
 interface Order {
   _id: string; // MongoDB ID
   orderId: string;
-  client: string;
+  client: string; // Teams
   avatar: string;
-  status: 'Completed' | 'Processing' | 'Hold';
+  status: 'Completed' | 'Live' | 'Scheduled';
   date: string;
-  amount: string;
+  amount: string; // Score
 }
 
 type SortKey = 'date' | 'amount' | 'client';
@@ -22,7 +22,7 @@ const OrdersTable: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newOrder, setNewOrder] = useState({ client: '', amount: '', status: 'Processing' });
+  const [newOrder, setNewOrder] = useState({ client: '', amount: '', status: 'Scheduled' as any });
   const [isSubmitting, setIsSubmitting] = useState(false);
   
   // New features state
@@ -38,7 +38,19 @@ const OrdersTable: React.FC = () => {
         const response = await fetch(`${API_URL}/api/orders`);
         if (!response.ok) throw new Error('Failed to fetch orders');
         const data = await response.json();
-        setOrders(data);
+        
+        // Map backend match properties (matchId, teams, score, status) to local UI models (orderId, client, amount, status)
+        const mappedData = data.map((item: any) => ({
+          _id: item._id,
+          orderId: item.matchId || item.orderId || `#MAT-${Math.floor(10000 + Math.random() * 90000)}`,
+          client: item.teams || item.client || 'TBD vs TBD',
+          avatar: item.avatar || 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=100&h=100&fit=crop',
+          status: item.status === 'Processing' ? 'Live' : (item.status === 'Hold' ? 'Scheduled' : item.status),
+          date: item.date || 'TBD',
+          amount: item.score || item.amount || '-'
+        }));
+        
+        setOrders(mappedData);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Something went wrong');
       } finally {
@@ -55,17 +67,17 @@ const OrdersTable: React.FC = () => {
       const response = await fetch(`${API_URL}/api/orders/${id}`, {
         method: 'DELETE',
       });
-      if (!response.ok) throw new Error('Failed to delete order');
+      if (!response.ok) throw new Error('Failed to delete match');
       setOrders(orders.filter(order => order._id !== id));
       setSelectedOrders(prev => prev.filter(selectedId => selectedId !== id));
     } catch (err) {
-      console.error('Error deleting order:', err);
-      alert('Failed to delete order.');
+      console.error('Error deleting match:', err);
+      alert('Failed to delete match.');
     }
   };
 
   const handleBulkDelete = async () => {
-    if (!window.confirm(`Are you sure you want to delete ${selectedOrders.length} orders?`)) return;
+    if (!window.confirm(`Are you sure you want to delete ${selectedOrders.length} matches?`)) return;
     setIsLoading(true);
     for (const id of selectedOrders) {
       await handleDelete(id);
@@ -82,9 +94,20 @@ const OrdersTable: React.FC = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus }),
       });
-      if (!response.ok) throw new Error('Failed to update order');
+      if (!response.ok) throw new Error('Failed to update status');
       const updatedOrder = await response.json();
-      setOrders(orders.map(o => (o._id === id ? updatedOrder : o)));
+      
+      const mappedUpdatedOrder = {
+        _id: updatedOrder._id,
+        orderId: updatedOrder.matchId || updatedOrder.orderId,
+        client: updatedOrder.teams || updatedOrder.client,
+        avatar: updatedOrder.avatar,
+        status: updatedOrder.status,
+        date: updatedOrder.date,
+        amount: updatedOrder.score || updatedOrder.amount
+      };
+      
+      setOrders(orders.map(o => (o._id === id ? mappedUpdatedOrder : o)));
     } catch (err) {
       console.error('Error updating status:', err);
       alert('Failed to update status.');
@@ -96,24 +119,42 @@ const OrdersTable: React.FC = () => {
     setIsSubmitting(true);
     try {
       const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-      const orderId = `#ORD-${Math.floor(10000 + Math.random() * 90000)}`;
+      const matchId = `#MAT-${Math.floor(10000 + Math.random() * 90000)}`;
       const date = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-      const avatar = `https://i.pravatar.cc/150?u=${orderId}`;
+      const avatar = `https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=100&h=100&fit=crop`;
       
       const response = await fetch(`${API_URL}/api/orders`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...newOrder, orderId, date, avatar }),
+        body: JSON.stringify({ 
+          matchId, 
+          teams: newOrder.client, 
+          avatar, 
+          status: newOrder.status, 
+          date, 
+          score: newOrder.amount 
+        }),
       });
       
-      if (!response.ok) throw new Error('Failed to create order');
+      if (!response.ok) throw new Error('Failed to create match');
       const createdOrder = await response.json();
-      setOrders([createdOrder, ...orders]);
+      
+      const mappedOrder = {
+        _id: createdOrder._id,
+        orderId: createdOrder.matchId,
+        client: createdOrder.teams,
+        avatar: createdOrder.avatar,
+        status: createdOrder.status,
+        date: createdOrder.date,
+        amount: createdOrder.score
+      };
+      
+      setOrders([mappedOrder, ...orders]);
       setIsModalOpen(false);
-      setNewOrder({ client: '', amount: '', status: 'Processing' });
+      setNewOrder({ client: '', amount: '', status: 'Scheduled' });
     } catch (err) {
-      console.error('Error adding order:', err);
-      alert('Failed to add order.');
+      console.error('Error adding match:', err);
+      alert('Failed to add match.');
     } finally {
       setIsSubmitting(false);
     }
@@ -132,13 +173,13 @@ const OrdersTable: React.FC = () => {
     if (sortConfig !== null) {
       sortableOrders.sort((a, b) => {
         if (sortConfig.key === 'amount') {
-          const amountA = parseFloat(a.amount.replace(/[^0-9.-]+/g, ""));
-          const amountB = parseFloat(b.amount.replace(/[^0-9.-]+/g, ""));
+          const amountA = parseFloat(a.amount.replace(/[^0-9.-]+/g, "")) || 0;
+          const amountB = parseFloat(b.amount.replace(/[^0-9.-]+/g, "")) || 0;
           return sortConfig.direction === 'asc' ? amountA - amountB : amountB - amountA;
         }
         if (sortConfig.key === 'date') {
-          const dateA = new Date(a.date).getTime();
-          const dateB = new Date(b.date).getTime();
+          const dateA = new Date(a.date).getTime() || 0;
+          const dateB = new Date(b.date).getTime() || 0;
           return sortConfig.direction === 'asc' ? dateA - dateB : dateB - dateA;
         }
         if (a[sortConfig.key] < b[sortConfig.key]) {
@@ -172,7 +213,7 @@ const OrdersTable: React.FC = () => {
   if (error) {
     return (
       <div className="orders-section glass error-state">
-        <p>Error loading orders: {error}</p>
+        <p>Error loading matches: {error}</p>
         <button onClick={() => window.location.reload()} className="glass-pill">Retry</button>
       </div>
     );
@@ -182,8 +223,8 @@ const OrdersTable: React.FC = () => {
     <div className="orders-section glass">
       <div className="orders-header">
         <div className="orders-title-group">
-          <h3 className="section-title">Client Engagement</h3>
-          <p className="section-subtitle">A detailed overview of recent architectural contract progress.</p>
+          <h3 className="section-title">Tournament Fixtures & Results</h3>
+          <p className="section-subtitle">A detailed overview of match details, status, and scores.</p>
         </div>
         <div className="header-actions">
           <div className="view-toggle">
@@ -217,7 +258,7 @@ const OrdersTable: React.FC = () => {
             )}
           </AnimatePresence>
           <button className="view-all glass-pill" onClick={() => setIsModalOpen(true)}>
-            <Plus size={14} /> New Order
+            <Plus size={14} /> Add Match
           </button>
           <button className="view-all glass-pill hidden-mobile">
             Export Data <ExternalLink size={14} />
@@ -232,7 +273,7 @@ const OrdersTable: React.FC = () => {
           {isLoading ? (
             <div className="table-loader">
               <Loader2 className="animate-spin text-primary" size={32} />
-              <span>Syncing with secure server...</span>
+              <span>Syncing with tournament database...</span>
             </div>
           ) : (
             <table>
@@ -246,16 +287,16 @@ const OrdersTable: React.FC = () => {
                       onChange={toggleSelectAll}
                     />
                   </th>
-                  <th>Order ID</th>
+                  <th>Match ID</th>
                   <th className="sortable" onClick={() => handleSort('client')}>
-                    Partner <ArrowUpDown size={12} className="sort-icon" />
+                    Teams <ArrowUpDown size={12} className="sort-icon" />
                   </th>
-                  <th>Current Status</th>
+                  <th>Status</th>
                   <th className="sortable" onClick={() => handleSort('date')}>
-                    Filing Date <ArrowUpDown size={12} className="sort-icon" />
+                    Kickoff Date <ArrowUpDown size={12} className="sort-icon" />
                   </th>
                   <th className="sortable amount-cell" onClick={() => handleSort('amount')}>
-                    Valuation <ArrowUpDown size={12} className="sort-icon" />
+                    Score <ArrowUpDown size={12} className="sort-icon" />
                   </th>
                   <th className="actions-cell"></th>
                 </tr>
@@ -283,7 +324,7 @@ const OrdersTable: React.FC = () => {
                         <div className="client-cell">
                           <div className="avatar-stack">
                             <img src={order.avatar} alt={order.client} className="client-avatar" />
-                            <div className="status-ping"></div>
+                            {order.status === 'Live' && <div className="status-ping" style={{ backgroundColor: '#ef4444' }}></div>}
                           </div>
                           <span className="client-name">{order.client}</span>
                         </div>
@@ -295,9 +336,9 @@ const OrdersTable: React.FC = () => {
                             value={order.status}
                             onChange={(e) => handleUpdateStatus(order._id, e.target.value)}
                           >
+                            <option value="Scheduled">Scheduled</option>
+                            <option value="Live">Live</option>
                             <option value="Completed">Completed</option>
-                            <option value="Processing">Processing</option>
-                            <option value="Hold">Hold</option>
                           </select>
                           <ChevronDown size={12} className="select-chevron" />
                         </div>
@@ -310,7 +351,7 @@ const OrdersTable: React.FC = () => {
                         <button 
                           className="row-action-btn delete-btn" 
                           onClick={() => handleDelete(order._id)}
-                          title="Delete Order"
+                          title="Delete Match"
                         >
                           <Trash2 size={18} />
                         </button>
@@ -338,26 +379,26 @@ const OrdersTable: React.FC = () => {
               animate={{ y: 0, opacity: 1, scale: 1 }}
               exit={{ y: 50, opacity: 0, scale: 0.95 }}
             >
-              <h3 className="modal-title">Create New Order</h3>
+              <h3 className="modal-title">Add Custom Match</h3>
               <form onSubmit={handleAddOrder}>
                 <div className="form-group">
-                  <label>Client Name</label>
+                  <label>Teams</label>
                   <input 
                     type="text" 
                     required 
                     value={newOrder.client} 
                     onChange={e => setNewOrder({...newOrder, client: e.target.value})}
-                    placeholder="e.g. Acme Corp"
+                    placeholder="e.g. Argentina vs France"
                   />
                 </div>
                 <div className="form-group">
-                  <label>Valuation</label>
+                  <label>Score / Time (e.g. 3-3 or vs)</label>
                   <input 
                     type="text" 
                     required 
                     value={newOrder.amount} 
                     onChange={e => setNewOrder({...newOrder, amount: e.target.value})}
-                    placeholder="e.g. $5,000.00"
+                    placeholder="e.g. 3 - 3"
                   />
                 </div>
                 <div className="form-group">
@@ -366,15 +407,15 @@ const OrdersTable: React.FC = () => {
                     value={newOrder.status} 
                     onChange={e => setNewOrder({...newOrder, status: e.target.value as any})}
                   >
-                    <option value="Processing">Processing</option>
+                    <option value="Scheduled">Scheduled</option>
+                    <option value="Live">Live</option>
                     <option value="Completed">Completed</option>
-                    <option value="Hold">Hold</option>
                   </select>
                 </div>
                 <div className="modal-actions">
                   <button type="button" className="glass-pill cancel-btn" onClick={() => setIsModalOpen(false)}>Cancel</button>
                   <button type="submit" className="glass-pill submit-btn" disabled={isSubmitting}>
-                    {isSubmitting ? <Loader2 className="animate-spin" size={16} /> : 'Create Order'}
+                    {isSubmitting ? <Loader2 className="animate-spin" size={16} /> : 'Add Match'}
                   </button>
                 </div>
               </form>

@@ -1,47 +1,47 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ShieldCheck, UserPlus, FileText, Server, CreditCard } from 'lucide-react';
+import { Target, Trophy, Play, Activity } from 'lucide-react';
 import './ActivityTimeline.css';
 
 const activities = [
   {
     id: 1,
-    title: 'New Partner Onboarded',
-    description: 'Acme Corp joined the platform.',
-    time: '2 hours ago',
-    icon: <UserPlus size={16} />,
-    color: 'var(--primary)'
+    title: 'World Cup Champions!',
+    description: 'Argentina wins 4-2 on penalties against France in an epic final.',
+    time: 'Dec 18, 2022',
+    icon: <Trophy size={16} />,
+    color: 'var(--warning)'
   },
   {
     id: 2,
-    title: 'Server Sync Completed',
-    description: 'All nodes successfully synchronized.',
-    time: '4 hours ago',
-    icon: <Server size={16} />,
-    color: '#10b981'
+    title: 'Hat-trick Milestone',
+    description: 'Kylian Mbappé scores a sensational hat-trick in the final.',
+    time: '90+2\' Penalty',
+    icon: <Target size={16} />,
+    color: '#ef4444'
   },
   {
     id: 3,
-    title: 'Contract Approved',
-    description: 'Project Zenith documentation signed.',
-    time: '5 hours ago',
-    icon: <FileText size={16} />,
-    color: '#8b5cf6'
+    title: 'Penalty Goal',
+    description: 'Lionel Messi scores from the spot to put Argentina back in front.',
+    time: '108\' Goal',
+    icon: <Target size={16} />,
+    color: 'var(--primary)'
   },
   {
     id: 4,
-    title: 'Payment Processed',
-    description: 'Invoice #INV-2026 for $12,500 paid.',
-    time: '1 day ago',
-    icon: <CreditCard size={16} />,
-    color: '#f59e0b'
+    title: 'Historic Semifinalist',
+    description: 'Morocco becomes the first African nation to reach the World Cup Semis.',
+    time: 'Dec 10, 2022',
+    icon: <Activity size={16} />,
+    color: '#10b981'
   },
   {
     id: 5,
-    title: 'Security Audit Passed',
-    description: 'Monthly security compliance verified.',
-    time: '2 days ago',
-    icon: <ShieldCheck size={16} />,
+    title: 'Tournament Kickoff',
+    description: 'FIFA World Cup Qatar 2022 begins at Al Bayt Stadium.',
+    time: 'Nov 20, 2022',
+    icon: <Play size={16} />,
     color: '#3b82f6'
   }
 ];
@@ -50,7 +50,7 @@ const ActivityTimeline: React.FC = () => {
   return (
     <div className="timeline-container glass">
       <div className="timeline-header">
-        <h3>Activity Audit</h3>
+        <h3>Match Events & Highlights</h3>
         <button className="view-all-btn">View All</button>
       </div>
       

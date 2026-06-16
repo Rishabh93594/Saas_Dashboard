@@ -14,8 +14,8 @@ const RevenueChart: React.FC = () => {
   const { theme } = useTheme();
 
   const isDark = theme === 'dark';
-  const textColor = isDark ? '#94a3b8' : '#64748b';
-  const gridColor = isDark ? 'rgba(255, 255, 255, 0.05)' : '#f1f5f9';
+  const textColor = isDark ? '#86efac' : '#1e5a38';
+  const gridColor = isDark ? 'rgba(34, 197, 94, 0.08)' : '#f1f5f9';
 
   const options = {
     responsive: true,
@@ -41,21 +41,23 @@ const RevenueChart: React.FC = () => {
         },
       },
       tooltip: {
-        backgroundColor: isDark ? '#1e293b' : '#0f172a',
+        backgroundColor: isDark ? '#061f10' : '#f0fdf4',
         padding: 12,
         titleFont: {
-          family: "'Plus Jakarta Sans', sans-serif",
+          family: "'Outfit', sans-serif",
           size: 14,
           weight: 700,
         },
         bodyFont: {
-          family: "'Plus Jakarta Sans', sans-serif",
+          family: "'Outfit', sans-serif",
           size: 13,
           weight: 500,
         },
         cornerRadius: 8,
         displayColors: true,
         boxPadding: 6,
+        titleColor: isDark ? '#f0fdf4' : '#062f17',
+        bodyColor: isDark ? '#86efac' : '#1e5a38',
       },
     },
     scales: {
@@ -85,7 +87,7 @@ const RevenueChart: React.FC = () => {
             weight: 600,
           },
           color: textColor,
-          callback: (value: any) => `$${value}k`,
+          callback: (value: any) => `${value}`,
         },
       },
     },
@@ -96,40 +98,40 @@ const RevenueChart: React.FC = () => {
       point: {
         radius: 0,
         hoverRadius: 6,
-        backgroundColor: '#2563eb',
+        backgroundColor: '#1ed760',
         borderWidth: 3,
         borderColor: '#fff',
       },
     },
   };
 
-  const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+  const labels = ['Group Stage', 'Round of 16', 'Quarter-Finals', 'Semi-Finals', 'Finals'];
 
   const data = {
     labels,
     datasets: [
       {
         fill: true,
-        label: 'Revenue',
-        data: [32, 45, 42, 68, 55, 74],
-        borderColor: '#6366f1',
+        label: 'Qatar 2022 Goals',
+        data: [120, 148, 158, 166, 172],
+        borderColor: '#1ed760',
         backgroundColor: (context: any) => {
           const ctx = context.chart.ctx;
           const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-          gradient.addColorStop(0, 'rgba(99, 102, 241, 0.2)');
-          gradient.addColorStop(1, 'rgba(99, 102, 241, 0)');
+          gradient.addColorStop(0, 'rgba(30, 255, 120, 0.25)');
+          gradient.addColorStop(1, 'rgba(30, 255, 120, 0)');
           return gradient;
         },
         borderWidth: 3,
       },
       {
-        fill: true,
-        label: 'Projections',
-        data: [25, 38, 45, 52, 60, 68],
-        borderColor: '#94a3b8',
+        fill: false,
+        label: 'Russia 2018 Goals',
+        data: [122, 146, 157, 163, 169],
+        borderColor: '#ffd700',
+        borderWidth: 2,
         borderDash: [5, 5],
         backgroundColor: 'transparent',
-        borderWidth: 2,
       },
     ],
   };
@@ -138,13 +140,13 @@ const RevenueChart: React.FC = () => {
     <div className="revenue-chart-container glass">
       <div className="chart-header">
         <div className="chart-title-group">
-          <h3 className="section-title">Revenue Dynamics</h3>
-          <span className="chart-subtitle">Regional performance for H1 2024</span>
+          <h3 className="section-title">Goal Scoring Dynamics</h3>
+          <span className="chart-subtitle">Cumulative goals scored by tournament stage</span>
         </div>
         <div className="chart-actions">
           <select className="glass-pill chart-select">
-            <option>Last 6 Months</option>
-            <option>Last Year</option>
+            <option>FIFA Cup 2022</option>
+            <option>FIFA Cup 2018</option>
           </select>
         </div>
       </div>

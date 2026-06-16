@@ -1,33 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
 
 :root {
-  /* Vibrant & Modern Color Palette (HSL) */
-  --primary-h: 238;
-  --primary-s: 100%;
-  --primary-l: 65%;
+  /* Vibrant Pitch Green Color Palette (HSL) */
+  --primary-h: 142;
+  --primary-s: 76%;
+  --primary-l: 45%;
   
   --primary: hsl(var(--primary-h), var(--primary-s), var(--primary-l));
   --primary-glow: hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.4);
   
   /* Gradient Fragments */
-  --grad-primary: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-  --grad-surface: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+  --grad-primary: linear-gradient(135deg, #1b4332 0%, #1ed760 100%);
+  --grad-surface: linear-gradient(180deg, rgba(30, 255, 120, 0.05) 0%, rgba(30, 255, 120, 0) 100%);
   
   /* Light Mode Tokens */
-  --bg-main: #f8fafc;
+  --bg-main: #f0fdf4;
   --bg-card: #ffffff;
   --bg-sidebar: #ffffff;
-  --bg-glass: rgba(255, 255, 255, 0.7);
+  --bg-glass: rgba(255, 255, 255, 0.75);
   
-  --text-main: #0f172a;
-  --text-muted: #64748b;
-  --text-light: #94a3b8;
+  --text-main: #062f17;
+  --text-muted: #1e5a38;
+  --text-light: #529e72;
   
-  --border: rgba(241, 245, 249, 1);
-  --border-glass: rgba(255, 255, 255, 0.4);
+  --border: rgba(220, 252, 231, 1);
+  --border-glass: rgba(30, 255, 120, 0.3);
   
   --success: #10b981;
-  --warning: #f59e0b;
+  --warning: #ffd700; /* Trophy Gold */
   --danger: #ef4444;
   
   /* Layout */
@@ -51,22 +51,22 @@
 }
 
 [data-theme='dark'] {
-  --bg-main: #030712;
-  --bg-card: #0f172a;
-  --bg-sidebar: #030712;
-  --bg-glass: rgba(15, 23, 42, 0.5);
+  --bg-main: #020c06;
+  --bg-card: #061f10;
+  --bg-sidebar: #020c06;
+  --bg-glass: rgba(6, 31, 16, 0.55);
 
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
-  --text-light: #475569;
+  --text-main: #f0fdf4;
+  --text-muted: #86efac;
+  --text-light: #22c55e;
 
-  --border: rgba(30, 41, 59, 0.5);
-  --border-glass: rgba(255, 255, 255, 0.08);
+  --border: rgba(34, 197, 94, 0.15);
+  --border-glass: rgba(34, 197, 94, 0.18);
 
   --shadow-premium: 
-    0 0 0 1px rgba(255,255,255,0.05),
-    0 4px 6px -1px rgba(0, 0, 0, 0.3),
-    0 20px 25px -5px rgba(0,0,0,0.4);
+    0 0 0 1px rgba(34, 197, 94, 0.08),
+    0 4px 6px -1px rgba(0, 0, 0, 0.5),
+    0 20px 25px -5px rgba(0, 0, 0, 0.6);
 }
 
 * {

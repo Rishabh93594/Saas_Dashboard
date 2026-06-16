@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { 
   User, 
-  Wallet, 
-  LineChart, 
-  ShoppingBag,
-  Sparkles,
-  Download
+  Trophy, 
+  Activity, 
+  Calendar,
+  Download,
+  Target
 } from 'lucide-react';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import StatsCard from './components/StatsCard';
@@ -80,11 +80,11 @@ const Dashboard: React.FC = () => {
                   className="title-icon glass"
                   whileHover={{ rotate: 15, scale: 1.1 }}
                 >
-                  <Sparkles size={24} className="text-primary" />
+                  <Trophy size={24} className="text-warning" />
                 </motion.div>
-                <h1>Executive Dashboard</h1>
+                <h1>FIFA Cup Analytics</h1>
               </div>
-              <p>Real-time analytics and architectural project management console.</p>
+              <p>Real-time tournament tracking, match stats, and squad performance console.</p>
             </div>
             <motion.button 
               className="btn-primary"
@@ -92,38 +92,38 @@ const Dashboard: React.FC = () => {
               whileTap={{ scale: 0.95 }}
             >
               <Download size={18} />
-              Generate Insight Report
+              Generate Stats Report
             </motion.button>
           </motion.header>
 
           <motion.div className="stats-grid" variants={itemVariants}>
             <StatsCard 
-              icon={<User size={20} />} 
-              label="Active Partners" 
-              value="12,842" 
-              trend="+12.5%" 
+              icon={<Target size={20} />} 
+              label="Total Goals Scored" 
+              value="172" 
+              trend="+15.3%" 
               trendType="up" 
             />
             <StatsCard 
-              icon={<Wallet size={20} />} 
-              label="Accrued Revenue" 
-              value="$42.5k" 
-              trend="+8.2%" 
-              trendType="up" 
-            />
-            <StatsCard 
-              icon={<LineChart size={20} />} 
-              label="Market Velocity" 
-              value="18.4%" 
-              trend="Optimal" 
+              icon={<Calendar size={20} />} 
+              label="Matches Played" 
+              value="64 / 64" 
+              trend="100%" 
               trendType="neutral" 
             />
             <StatsCard 
-              icon={<ShoppingBag size={20} />} 
-              label="Open Contracts" 
-              value="1,204" 
-              trend="-2.4%" 
-              trendType="down" 
+              icon={<Activity size={20} />} 
+              label="Avg Goals / Match" 
+              value="2.69" 
+              trend="High Velocity" 
+              trendType="up" 
+            />
+            <StatsCard 
+              icon={<User size={20} />} 
+              label="Total Attendance" 
+              value="3.40M" 
+              trend="+11.8%" 
+              trendType="up" 
             />
           </motion.div>
 
@@ -142,7 +142,7 @@ const Dashboard: React.FC = () => {
           </motion.div>
 
           <motion.footer className="footer" variants={itemVariants}>
-            Design & Experience by Alex Sterling • Digital Architecture Framework v2.4
+            FIFA World Cup Analytics Dashboard • Qatar 2022 ™ • Built with ⚽ for Football
           </motion.footer>
         </motion.div>
       )}

@@ -24,8 +24,8 @@ function App() {
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Dashboard />} />
-            <Route path="/billing" element={<Billing />} />
-            <Route path="/projects" element={<Projects />} />
+            <Route path="/players" element={<Billing />} />
+            <Route path="/teams" element={<Projects />} />
           </Routes>
         </AnimatePresence>
       </main>

@@ -20,7 +20,7 @@ interface Order {
   orderId: string;
   client: string;
   avatar: string;
-  status: 'Completed' | 'Processing' | 'Hold';
+  status: 'Completed' | 'Live' | 'Scheduled';
   date: string;
   amount: string;
 }
@@ -31,14 +31,14 @@ interface OrdersKanbanProps {
   onUpdateStatus: (id: string, newStatus: string) => void;
 }
 
-// 1. Dumb UI Component (No drag hooks here)
+// 1. Dumb UI Component
 const OrderCard = React.forwardRef<HTMLDivElement, { order: Order; style?: React.CSSProperties; [key: string]: any }>(
   ({ order, style, ...props }, ref) => {
     return (
       <div ref={ref} style={style} {...props} className="kanban-card glass">
         <div className="kanban-card-header">
           <span className="order-id">{order.orderId}</span>
-          <span className="amount-value">{order.amount}</span>
+          <span className="amount-value" style={{ color: 'var(--warning)', fontWeight: 'bold' }}>{order.amount}</span>
         </div>
         <div className="client-cell" style={{ margin: '1rem 0' }}>
           <img src={order.avatar} alt={order.client} className="client-avatar" />
@@ -75,7 +75,7 @@ const SortableOrderCard = ({ order }: { order: Order }) => {
   );
 };
 
-// 3. Column Component (Droppable so it accepts items even when empty)
+// 3. Column Component
 const Column = ({ id, title, items }: { id: string, title: string, items: Order[] }) => {
   const { setNodeRef } = useDroppable({ id });
 
@@ -105,8 +105,8 @@ const OrdersKanban: React.FC<OrdersKanbanProps> = ({ orders, isLoading, onUpdate
   );
 
   const columns = {
-    'Processing': orders.filter(o => o.status === 'Processing'),
-    'Hold': orders.filter(o => o.status === 'Hold'),
+    'Scheduled': orders.filter(o => o.status === 'Scheduled'),
+    'Live': orders.filter(o => o.status === 'Live'),
     'Completed': orders.filter(o => o.status === 'Completed')
   };
 
@@ -123,7 +123,7 @@ const OrdersKanban: React.FC<OrdersKanbanProps> = ({ orders, isLoading, onUpdate
     let targetStatus = '';
 
     // Check if dropped directly onto a column container
-    if (['Processing', 'Hold', 'Completed'].includes(overId)) {
+    if (['Scheduled', 'Live', 'Completed'].includes(overId)) {
       targetStatus = overId;
     } else {
       // Otherwise, it was dropped on another card
@@ -147,7 +147,7 @@ const OrdersKanban: React.FC<OrdersKanbanProps> = ({ orders, isLoading, onUpdate
     return (
       <div className="table-loader">
         <Loader2 className="animate-spin text-primary" size={32} />
-        <span>Loading Kanban Data...</span>
+        <span>Loading Board Data...</span>
       </div>
     );
   }

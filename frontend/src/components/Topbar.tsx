@@ -24,7 +24,7 @@ const Topbar: React.FC = () => {
     <header className="topbar">
       <div className="search-container glass">
         <Search size={18} className="search-icon" />
-        <input type="text" placeholder="Search architectural data..." />
+        <input type="text" placeholder="Search teams, players, fixtures..." />
         <kbd className="search-kbd">⌘K</kbd>
       </div>
 
@@ -56,8 +56,8 @@ const Topbar: React.FC = () => {
             whileTap={{ scale: 0.98 }}
           >
             <div className="user-info">
-              <span className="user-name">Alex Sterling</span>
-              <span className="user-role">Lead Architect</span>
+              <span className="user-name">Rishabh Yadav</span>
+              <span className="user-role">Match Commissioner</span>
             </div>
             <div className="avatar-wrapper">
               <img
