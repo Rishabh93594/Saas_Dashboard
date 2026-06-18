@@ -2,7 +2,10 @@
   padding: 2rem;
   border-radius: var(--radius-xl);
   background: var(--bg-glass);
-  height: 100%;
+  height: auto;
+  max-height: 600px;
+  display: flex;
+  flex-direction: column;
 }
 
 .timeline-header {
@@ -38,6 +41,8 @@
   flex-direction: column;
   gap: 1.5rem;
   position: relative;
+  overflow-y: auto;
+  padding-right: 0.25rem;
 }
 
 .timeline-list::before {

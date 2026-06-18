@@ -189,8 +189,19 @@
 
 .dashboard-bottom {
   display: grid;
-  grid-template-columns: 1fr 380px;
+  grid-template-columns: 1fr 420px;
   gap: 2rem;
+  align-items: start;
+}
+
+.orders-wrapper {
+  min-width: 0;
+}
+
+.timeline-wrapper {
+  min-width: 0;
+  position: sticky;
+  top: 1rem;
 }
 
 @media (max-width: 1280px) {
