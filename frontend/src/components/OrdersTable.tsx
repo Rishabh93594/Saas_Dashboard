@@ -62,8 +62,16 @@ const OrdersTable: React.FC = () => {
           date: item.date || 'TBD',
           amount: item.score || item.amount || '-'
         }));
+
+        // Deduplicate by orderId in case the DB was seeded multiple times
+        const seen = new Set<string>();
+        const uniqueData = mappedData.filter((item: Order) => {
+          if (seen.has(item.orderId)) return false;
+          seen.add(item.orderId);
+          return true;
+        });
         
-        setOrders(mappedData);
+        setOrders(uniqueData.length > 0 ? uniqueData : FALLBACK_ORDERS);
       } catch (err) {
         // Use fallback data so the UI never shows a broken error state in production
         console.warn('API unavailable, using fallback match data:', err);
