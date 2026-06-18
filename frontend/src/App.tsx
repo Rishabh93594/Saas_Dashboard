@@ -5,6 +5,7 @@ import Topbar from './components/Topbar';
 import Dashboard from './Dashboard';
 import Billing from './Billing';
 import Projects from './Projects';
+import Stadiums from './Stadiums';
 import BackgroundBlobs from './components/BackgroundBlobs';
 import './App.css';
 
@@ -26,6 +27,7 @@ function App() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/players" element={<Billing />} />
             <Route path="/teams" element={<Projects />} />
+            <Route path="/stadiums" element={<Stadiums />} />
           </Routes>
         </AnimatePresence>
       </main>

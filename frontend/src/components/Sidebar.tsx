@@ -6,7 +6,8 @@ import {
   FileText, 
   HelpCircle, 
   LogOut,
-  ChevronRight
+  ChevronRight,
+  MapPin
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -23,6 +24,7 @@ const Sidebar: React.FC = () => {
     { name: 'Dashboard', path: '/', icon: <LayoutDashboard size={20} /> },
     { name: 'Teams', path: '/teams', icon: <Users size={20} /> },
     { name: 'Players & Fixtures', path: '/players', icon: <Trophy size={20} /> },
+    { name: 'Stadiums', path: '/stadiums', icon: <MapPin size={20} /> },
   ];
 
   const footerItems = [
