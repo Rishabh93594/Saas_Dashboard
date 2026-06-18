@@ -347,7 +347,14 @@ const OrdersTable: React.FC = () => {
                       <td>
                         <div className="client-cell">
                           <div className="avatar-stack">
-                            <img src={order.avatar} alt={order.client} className="client-avatar" />
+                            <img
+                              src={order.avatar}
+                              alt=""
+                              className="client-avatar"
+                              onError={(e) => {
+                                (e.target as HTMLImageElement).style.display = 'none';
+                              }}
+                            />
                             {order.status === 'Live' && <div className="status-ping" style={{ backgroundColor: '#ef4444' }}></div>}
                           </div>
                           <span className="client-name">{order.client}</span>
